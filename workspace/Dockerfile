@@ -84,7 +84,7 @@ RUN sed -i 's/\r//' /root/aliases.sh && \
     echo "source ~/aliases.sh" >> ~/.bashrc && \
 	echo "" >> ~/.bashrc
 
-USER laradock
+USER ${LARADOCK_USER}
 
 RUN echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
@@ -103,7 +103,7 @@ COPY ./composer.json /home/laradock/.composer/composer.json
 # Make sure that ~/.composer belongs to laradock
 RUN chown -R laradock:laradock /home/laradock/.composer
 
-USER laradock
+USER ${LARADOCK_USER}
 
 # Check if global install need to be ran
 ARG COMPOSER_GLOBAL_INSTALL=false
@@ -130,7 +130,7 @@ RUN echo "" >> ~/.bashrc && \
 ###########################################################################
 
 # add ./vendor/bin to non-root user's bashrc (needed for phpunit)
-USER laradock
+USER ${LARADOCK_USER}
 
 RUN echo "" >> ~/.bashrc && \
     echo 'export PATH="/var/www/vendor/bin:$PATH"' >> ~/.bashrc
@@ -326,7 +326,7 @@ RUN if [ ${INSTALL_DRUPAL_CONSOLE} = true ]; then \
     chmod +x /usr/local/bin/drupal \
 ;fi
 
-USER laradock
+USER ${LARADOCK_USER}
 
 ###########################################################################
 # Node / NVM:
@@ -381,7 +381,7 @@ RUN if [ ${NPM_REGISTRY} ]; then \
 # YARN:
 ###########################################################################
 
-USER laradock
+USER ${LARADOCK_USER}
 
 ARG INSTALL_YARN=false
 ARG YARN_VERSION=latest
@@ -457,7 +457,7 @@ RUN if [ ${INSTALL_V8JS} = true ]; then \
 # Laravel Envoy:
 ###########################################################################
 
-USER laradock
+USER ${LARADOCK_USER}
 
 ARG INSTALL_LARAVEL_ENVOY=false
 
@@ -506,7 +506,7 @@ RUN if [ ${INSTALL_DEPLOYER} = true ]; then \
 ###########################################################################
 # Prestissimo:
 ###########################################################################
-USER laradock
+USER ${LARADOCK_USER}
 
 ARG INSTALL_PRESTISSIMO=false
 
@@ -611,7 +611,7 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
     ;fi\
 ;fi
 
-USER laradock
+USER ${LARADOCK_USER}
 
 ###########################################################################
 # Symfony:
